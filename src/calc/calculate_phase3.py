@@ -2,8 +2,6 @@ from calc.calculate_phase_base import CalculatePhaseBase, BY_CONFIGURATION, BY_M
 from model.baking_conf import MIN_DELEGATION_KEY
 from model.reward_log import RewardLog, TYPE_FOUNDERS_PARENT
 
-MUTEZ = 1e+6
-
 
 class CalculatePhase3(CalculatePhaseBase):
     """
@@ -48,7 +46,7 @@ class CalculatePhase3(CalculatePhaseBase):
 
         # set fee rates and ratios
         for rl in self.filterskipped(new_rewards):
-            rl.service_fee_rate = self.fee_calc.calculate(rl.address)
+            rl.service_fee_rate = self.fee_calc.calculate(rl.originaladdress)
             rl.service_fee_ratio = rl.service_fee_rate * rl.ratio
             rl.ratio = rl.ratio - rl.service_fee_ratio
             rl.ratio3 = rl.ratio

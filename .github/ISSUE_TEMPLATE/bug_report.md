@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-labels: 
+labels: bug
 
 ---
 
@@ -23,8 +23,10 @@ If applicable, add screenshots to help explain your problem.
 
 **Environment**
  - Source Code Build or Docker
- - Chain mainnet, zeronet, alphanet
+ - Attached configuration
+ - Chain mainnet, testnet
  - actual command used
+ - Operating system / system specification
 
 **Additional context**
 Add any other context about the problem here.
