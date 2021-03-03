@@ -1,4 +1,4 @@
-How to get and install Tezos Reward Distributor?
+How to get and install TRD?
 =====================================================
 
 Requirements and Setup
@@ -16,7 +16,7 @@ Download the application repository using git clone:
 
 ::
 
-    git clone https://github.com/habanoz/tezos-reward-distributor
+    git clone https://github.com/tezos-reward-distributor-organization/tezos-reward-distributor
 
 To install required modules, use pip with requirements.txt provided.
 
@@ -30,3 +30,7 @@ Regulary check and upgrade to the latest available version:
 ::
 
     git pull
+
+The Tezos signer is also needed to run TRD. Please check out the offical documentation_ and install the Tezos signer.
+
+.. _documentation : https://tezos.gitlab.io/introduction/howtoget.html
