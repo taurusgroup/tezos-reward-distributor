@@ -1,4 +1,4 @@
-Run as Linux Service (WIP)
+Run as Linux Service
 ====================
 
 Alternatively, it is possible to add tezos-reward-distributer as a Linux service. It

@@ -2,9 +2,10 @@ from abc import ABC, abstractmethod
 
 
 class ConfigParser(ABC):
-    def __init__(self, text):
+    def __init__(self, text, verbose=None):
         super(ConfigParser, self).__init__()
         self.conf_text = text
+        self.verbose = verbose
         self.conf_obj = dict()
 
     @abstractmethod

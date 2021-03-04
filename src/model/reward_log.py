@@ -1,3 +1,5 @@
+from enum import Enum
+
 from Constants import EXIT_PAYMENT_TYPE, PaymentStatus
 
 TYPE_DELEGATOR = "D"
@@ -6,32 +8,31 @@ TYPE_OWNER = "O"
 TYPE_OWNERS_PARENT = "OWNERS_PARENT"
 TYPE_FOUNDERS_PARENT = "FOUNDERS_PARENT"
 TYPE_MERGED = "M"
+
 TYPE_EXTERNAL = "E"
 
-types = {
-    TYPE_DELEGATOR: 5,
-    TYPE_OWNER: 4,
-    TYPE_FOUNDER: 3,
-    TYPE_OWNERS_PARENT: 2,
-    TYPE_FOUNDERS_PARENT: 1,
-    TYPE_MERGED: 0
-}
+
+# TYPE_MERGED = "MERGED"
+
+
+class RunMode(Enum):
+    FOREVER = 1
+    PENDING = 2
+    ONETIME = 3
 
 
 class RewardLog:
-    def __init__(self, address, type, staking_balance, current_balance, originaladdress=None) -> None:
+    def __init__(self, address, type, staking_balance, current_balance) -> None:
         super().__init__()
         self.staking_balance = staking_balance
         self.current_balance = current_balance
         self.address = address
         self.paymentaddress = address
-        self.originaladdress = originaladdress if originaladdress is not None else address
         self.needs_activation = False
         self.type = type
         self.desc = ""
         self.skipped = False
         self.skippedatphase = 0
-        self.cycle = 0
         self.ratio0 = 0
         self.ratio1 = 0
         self.ratio2 = 0
@@ -62,10 +63,8 @@ class RewardLog:
         return self
 
     def __repr__(self) -> str:
-        return "Address: {} ({}), T: {}, SB: {}, CB: {}, Amt: {}, Skp: {}, NA: {}".format(
-            self.address, self.paymentaddress, self.type,
-            self.staking_balance, self.current_balance, self.amount,
-            self.skipped, self.needs_activation)
+        return "Address: {}, Type: {}, SB: {}, CB: {}, Skipped: {}, NA: {}".format(
+            self.address, self.type, self.staking_balance, self.current_balance, self.skipped, self.needs_activation)
 
     @staticmethod
     def ExitInstance():
@@ -80,7 +79,8 @@ class RewardLog:
 
 
 def cmp_by_skip_type_balance(rl1, rl2):
-
+    types = {TYPE_DELEGATOR: 5, TYPE_OWNER: 4, TYPE_FOUNDER: 3, TYPE_OWNERS_PARENT: 2, TYPE_FOUNDERS_PARENT: 1,
+             TYPE_MERGED: 0}
     if rl1.skipped == rl2.skipped:
         if rl1.type == rl2.type:
             if rl1.staking_balance is None:
@@ -101,6 +101,8 @@ def cmp_by_skip_type_balance(rl1, rl2):
 
 
 def cmp_by_type_balance(rl1, rl2):
+    types = {TYPE_DELEGATOR: 5, TYPE_OWNER: 4, TYPE_FOUNDER: 3, TYPE_OWNERS_PARENT: 2, TYPE_FOUNDERS_PARENT: 1,
+             TYPE_MERGED: 0}
 
     if rl1.type == rl2.type:
         if rl1.staking_balance is None:
