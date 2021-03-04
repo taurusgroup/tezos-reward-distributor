@@ -135,8 +135,6 @@ class BakingYamlConfParser(YamlConfParser):
             raise ConfigurationException("KT addresses cannot be used for payments. Only tz addresses are allowed")
 
         if len(pymnt_addr) == PKH_LENGHT and pymnt_addr.startswith("tz"):
-            self.clnt_mngr.check_pkh_known_by_signer(pymnt_addr)
-
             conf_obj[('__%s_type' % PAYMENT_ADDRESS)] = AddrType.TZ
             conf_obj[('__%s_pkh' % PAYMENT_ADDRESS)] = pymnt_addr
             conf_obj[('__%s_manager' % PAYMENT_ADDRESS)] = pymnt_addr
